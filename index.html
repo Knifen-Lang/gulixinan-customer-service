@@ -1,0 +1,2098 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>固锂芯安 — 全固态电池干法复合正极极片领航者</title>
+
+<!-- ============================================================
+     固锂芯安 (Gulixin'an) 公司官网
+     纯原生 HTML + CSS + JavaScript
+     2026
+============================================================ -->
+
+<style>
+/* ==========================================================
+   CSS Reset & Variables
+   ========================================================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* 主色调 —— 蓝白科技风 */
+  --blue-900: #0a1628;
+  --blue-800: #0f2040;
+  --blue-700: #162d5a;
+  --blue-600: #1a3a78;
+  --blue-500: #1e4b9e;
+  --blue-400: #2563eb;
+  --blue-300: #3b82f6;
+  --blue-200: #60a5fa;
+  --blue-100: #93c5fd;
+  --blue-50:  #dbeafe;
+  --blue-25:  #eff6ff;
+
+  --white:    #ffffff;
+  --gray-50:  #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-300: #cbd5e1;
+  --gray-400: #94a3b8;
+  --gray-500: #64748b;
+  --gray-600: #475569;
+  --gray-700: #334155;
+  --gray-800: #1e293b;
+  --gray-900: #0f172a;
+
+  --accent:       var(--blue-400);
+  --accent-light: var(--blue-300);
+  --accent-dark:  var(--blue-600);
+
+  --text-primary:   var(--gray-800);
+  --text-secondary: var(--gray-500);
+  --text-light:     var(--gray-300);
+
+  --bg-page:      var(--white);
+  --bg-section:   var(--gray-50);
+  --bg-footer:    var(--blue-900);
+
+  --border: var(--gray-200);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --radius-lg: 20px;
+
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.06);
+  --shadow-md: 0 4px 16px rgba(0,0,0,.08);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,.12);
+  --shadow-xl: 0 20px 60px rgba(0,0,0,.15);
+
+  --max-width: 1200px;
+  --nav-height: 72px;
+
+  --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--nav-height);
+}
+
+body {
+  font-family: var(--font-main);
+  color: var(--text-primary);
+  background: var(--bg-page);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: rgba(37,99,235,.12);
+}
+
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+
+/* ==========================================================
+   Utility Classes
+   ========================================================== */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section {
+  padding: 100px 0;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.section-header h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+
+.section-header p {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* 标题下划线装饰 */
+.section-header h2::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--blue-400), var(--blue-300));
+  border-radius: 2px;
+  margin: 16px auto 0;
+}
+
+/* ==========================================================
+   Scroll Animation (Intersection Observer)
+   ========================================================== */
+.animate {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.animate.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 子元素延迟 */
+.animate-delay-1 { transition-delay: 0.1s; }
+.animate-delay-2 { transition-delay: 0.2s; }
+.animate-delay-3 { transition-delay: 0.3s; }
+.animate-delay-4 { transition-delay: 0.4s; }
+
+/* ==========================================================
+   Navigation Bar (Fixed Top)
+   ========================================================== */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--nav-height);
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  z-index: 1000;
+  transition: box-shadow 0.3s;
+}
+
+.navbar.scrolled {
+  box-shadow: var(--shadow-md);
+}
+
+.navbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+/* Logo */
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--gray-900);
+  white-space: nowrap;
+}
+
+.nav-logo .logo-img {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* Nav Links */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav-links a {
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--gray-600);
+  transition: color 0.2s, background 0.2s;
+  white-space: nowrap;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--blue-400);
+  background: var(--blue-25);
+}
+
+/* Hamburger (Mobile) */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 8px;
+  background: none;
+  border: none;
+}
+
+.hamburger span {
+  display: block;
+  width: 26px; height: 2px;
+  background: var(--gray-700);
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+
+/* ==========================================================
+   Hero Section
+   ========================================================== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, #f0f4ff 0%, #e8f2ff 25%, #dceaff 50%, #f4f8ff 75%, #edf2ff 100%);
+  position: relative;
+  overflow: hidden;
+  padding-top: var(--nav-height);
+}
+
+/* 科技感网格背景 */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(37,99,235,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37,99,235,.06) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+/* 上光晕 */
+.hero::after {
+  content: '';
+  position: absolute;
+  top: -250px; right: -150px;
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(37,99,235,.12) 0%, transparent 70%);
+  pointer-events: none;
+  border-radius: 50%;
+}
+
+/* 下光晕 */
+.hero .glow-bottom {
+  position: absolute;
+  bottom: -200px; left: -150px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(59,130,246,.08) 0%, transparent 70%);
+  pointer-events: none;
+  border-radius: 50%;
+}
+
+.hero .container {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 800px;
+}
+
+.hero .badge {
+  display: inline-block;
+  padding: 6px 18px;
+  border-radius: 20px;
+  border: 1px solid rgba(37,99,235,.2);
+  background: rgba(37,99,235,.06);
+  color: var(--blue-500);
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 28px;
+  letter-spacing: 1px;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 800;
+  color: var(--gray-900);
+  line-height: 1.3;
+  margin-bottom: 20px;
+  letter-spacing: -1px;
+}
+
+.hero h1 span {
+  background: linear-gradient(135deg, #2563eb, #6366f1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero p {
+  font-size: 1.15rem;
+  color: var(--gray-500);
+  margin-bottom: 40px;
+  line-height: 1.8;
+}
+
+.hero .btn-group {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s;
+  border: none;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--blue-400);
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(37,99,235,.35);
+}
+
+.btn-primary:hover {
+  background: var(--blue-500);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(37,99,235,.45);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--blue-500);
+  border: 2px solid rgba(37,99,235,.3);
+}
+
+.btn-outline:hover {
+  border-color: var(--blue-400);
+  background: rgba(37,99,235,.04);
+  transform: translateY(-2px);
+}
+
+/* Hero Stats */
+.hero-stats {
+  display: flex;
+  gap: 48px;
+  justify-content: center;
+  margin-top: 56px;
+  flex-wrap: wrap;
+}
+
+.hero-stats .stat {
+  text-align: center;
+}
+
+.hero-stats .stat .num {
+  font-size: 2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #2563eb, #6366f1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-stats .stat .label {
+  font-size: 0.85rem;
+  color: var(--gray-400);
+  margin-top: 4px;
+}
+
+/* 向下滚动指示器 */
+.scroll-indicator {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--gray-400);
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+}
+
+.scroll-indicator .mouse {
+  width: 24px; height: 38px;
+  border: 2px solid rgba(37,99,235,.25);
+  border-radius: 12px;
+  position: relative;
+}
+
+.scroll-indicator .mouse::after {
+  content: '';
+  position: absolute;
+  top: 8px; left: 50%;
+  transform: translateX(-50%);
+  width: 4px; height: 8px;
+  background: rgba(37,99,235,.4);
+  border-radius: 2px;
+  animation: scrollWheel 2s ease-in-out infinite;
+}
+
+@keyframes scrollWheel {
+  0%, 100% { top: 8px; opacity: 1; }
+  50% { top: 18px; opacity: 0.3; }
+}
+
+/* ==========================================================
+   About Section
+   ========================================================== */
+.about {
+  background: var(--white);
+}
+
+.about .about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.about .about-text h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--gray-900);
+}
+
+.about .about-text p {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.9;
+  margin-bottom: 20px;
+}
+
+.about .about-highlights {
+  display: flex;
+  gap: 24px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+
+.about .highlight-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  background: var(--blue-25);
+  color: var(--blue-600);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.about .highlight-item .icon {
+  font-size: 1.3rem;
+}
+
+/* 右侧图片占位 */
+.about .about-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about .image-placeholder {
+  width: 100%;
+  max-width: 480px;
+  aspect-ratio: 4 / 3;
+  background: linear-gradient(135deg, var(--blue-25) 0%, var(--blue-50) 50%, #e0e7ff 100%);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+.about .image-placeholder::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 140px; height: 140px;
+  border-radius: 50%;
+  background: rgba(37,99,235,.08);
+}
+
+.about .image-placeholder .icon-big {
+  font-size: 4rem;
+  position: relative;
+  z-index: 1;
+}
+
+.about .image-placeholder .img-label {
+  font-size: 0.9rem;
+  color: var(--gray-500);
+  position: relative;
+  z-index: 1;
+  font-weight: 500;
+}
+
+/* ==========================================================
+   Technology Section (Cards)
+   ========================================================== */
+.tech {
+  background: var(--gray-50);
+}
+
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.tech-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 36px 28px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.3s, box-shadow 0.3s;
+  border: 1px solid var(--border);
+  text-align: center;
+}
+
+.tech-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+}
+
+.tech-card .card-icon {
+  width: 64px; height: 64px;
+  border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px;
+  font-size: 1.8rem;
+}
+
+.tech-card:nth-child(1) .card-icon { background: rgba(37,99,235,.1); }
+.tech-card:nth-child(2) .card-icon { background: rgba(99,102,241,.1); }
+.tech-card:nth-child(3) .card-icon { background: rgba(14,165,233,.1); }
+
+.tech-card h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 12px;
+}
+
+.tech-card p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.tech-card .card-tag {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  background: var(--blue-25);
+  color: var(--blue-600);
+}
+
+/* ==========================================================
+   Products Section
+   ========================================================== */
+.products {
+  background: var(--white);
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.product-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.product-card .product-badge {
+  position: absolute;
+  top: 16px; left: 16px;
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  z-index: 1;
+}
+
+.product-card:nth-child(1) .product-badge {
+  background: rgba(37,99,235,.12);
+  color: var(--blue-600);
+}
+
+.product-card:nth-child(2) .product-badge {
+  background: rgba(99,102,241,.12);
+  color: #4f46e5;
+}
+
+.product-card .product-image {
+  height: 200px;
+  background: linear-gradient(135deg, var(--blue-25), #e0e7ff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.product-card .product-image .icon {
+  font-size: 3.5rem;
+  opacity: 0.6;
+}
+
+.product-card .product-info {
+  padding: 24px;
+}
+
+.product-card .product-info h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 8px;
+}
+
+.product-card .product-info .price {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--blue-600);
+  margin-bottom: 12px;
+}
+
+.product-card .product-info .price-unit {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.product-card .product-info p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+.product-card .feature-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.product-card .feature-list span {
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  background: var(--gray-100);
+  color: var(--gray-600);
+}
+
+/* ==========================================================
+   Partners Section
+   ========================================================== */
+.partners {
+  background: var(--gray-50);
+}
+
+.partner-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.partner-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 36px 20px;
+  text-align: center;
+  border: 1px solid var(--border);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.partner-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.partner-card .partner-icon {
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+}
+
+.partner-card .partner-name {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--gray-900);
+  margin-bottom: 4px;
+}
+
+.partner-card .partner-desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+/* ==========================================================
+   Contact Section
+   ========================================================== */
+.contact {
+  background: var(--white);
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+}
+
+.contact .contact-info h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 8px;
+}
+
+.contact .contact-info > p {
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+}
+
+.contact .info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contact .info-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.contact .info-item .info-icon {
+  width: 42px; height: 42px;
+  border-radius: 10px;
+  background: var(--blue-25);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.contact .info-item h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--gray-800);
+  margin-bottom: 2px;
+}
+
+.contact .info-item p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Contact Form */
+.contact .contact-form {
+  background: var(--gray-50);
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  border: 1px solid var(--border);
+}
+
+.contact .contact-form h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 24px;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--gray-700);
+  margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: var(--text-primary);
+  background: var(--white);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--blue-400);
+  box-shadow: 0 0 0 3px rgba(37,99,235,.08);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 14px;
+  background: var(--blue-400);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.25s, transform 0.15s;
+}
+
+.btn-submit:hover { background: var(--blue-500); transform: translateY(-1px); }
+.btn-submit:active { transform: scale(0.98); }
+
+/* 表单成功提示 */
+.form-success {
+  display: none;
+  padding: 20px;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  border-radius: var(--radius-sm);
+  color: #065f46;
+  font-weight: 600;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.form-success.show { display: block; }
+
+/* ==========================================================
+   Footer
+   ========================================================== */
+.footer {
+  background: var(--blue-900);
+  color: var(--blue-100);
+  padding: 48px 0 28px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.footer .footer-brand h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+
+.footer .footer-brand p {
+  font-size: 0.9rem;
+  color: var(--blue-100);
+  opacity: 0.7;
+  line-height: 1.7;
+}
+
+.footer .footer-col h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 16px;
+}
+
+.footer .footer-col a {
+  display: block;
+  padding: 4px 0;
+  font-size: 0.88rem;
+  color: var(--blue-100);
+  opacity: 0.7;
+  transition: opacity 0.2s, color 0.2s;
+}
+
+.footer .footer-col a:hover {
+  opacity: 1;
+  color: var(--blue-200);
+}
+
+.footer .footer-bottom {
+  border-top: 1px solid rgba(255,255,255,.08);
+  padding-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 0.85rem;
+  color: var(--blue-100);
+  opacity: 0.6;
+}
+
+.footer .footer-bottom .slogan {
+  font-weight: 600;
+  color: var(--blue-200);
+  opacity: 0.8;
+}
+
+/* ==========================================================
+   Responsive Design
+   ========================================================== */
+@media (max-width: 1024px) {
+  .section { padding: 72px 0; }
+  .section-header h2 { font-size: 1.8rem; }
+
+  .about .about-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .about .about-image { order: -1; }
+  .about .image-placeholder { max-width: 360px; margin: 0 auto; }
+
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ---- 平板 & 大屏手机 ---- */
+@media (max-width: 768px) {
+  :root { --nav-height: 60px; }
+
+  .section { padding: 52px 0; }
+  .section-header { margin-bottom: 32px; }
+  .section-header h2 { font-size: 1.55rem; }
+  .section-header h2::after { width: 48px; height: 3px; margin-top: 12px; }
+  .section-header p { font-size: .95rem; }
+
+  /* 导航 — 全屏下拉菜单 */
+  .nav-links {
+    position: fixed;
+    top: var(--nav-height);
+    left: 0; right: 0;
+    flex-direction: column;
+    background: rgba(255,255,255,.98);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 8px 16px 16px;
+    gap: 0;
+    transform: translateY(-120%);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.25s ease;
+    pointer-events: none;
+    box-shadow: var(--shadow-md);
+  }
+  .nav-links.show {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .nav-links a {
+    padding: 15px 14px;
+    font-size: 1rem;
+    font-weight: 500;
+    border-bottom: 1px solid var(--gray-100);
+    border-radius: 0;
+    width: 100%;
+  }
+  .nav-links a:last-child { border-bottom: none; }
+  .hamburger { display: flex; padding: 10px; }  /* 44px+ 触摸目标 */
+
+  /* Logo 手机端缩小 */
+  .nav-logo { font-size: 1.05rem; gap: 8px; }
+  .nav-logo .logo-img { width: 32px; height: 32px; border-radius: 8px; }
+
+  /* Hero */
+  .hero {
+    min-height: 92vh;
+    padding-top: var(--nav-height);
+  }
+  .hero .badge { font-size: .78rem; padding: 5px 14px; margin-bottom: 20px; }
+  .hero h1 { font-size: 1.5rem; letter-spacing: -.3px; }
+  .hero p { font-size: .92rem; margin-bottom: 28px; }
+  .hero .btn-group { gap: 12px; }
+  .btn { padding: 12px 26px; font-size: .92rem; }
+  .hero-stats { gap: 20px; margin-top: 36px; }
+  .hero-stats .stat .num { font-size: 1.3rem; }
+  .hero-stats .stat .label { font-size: .75rem; }
+  .scroll-indicator { bottom: 20px; }
+
+  /* 通用卡片 */
+  .tech-grid { grid-template-columns: 1fr; gap: 20px; }
+  .tech-card { padding: 28px 22px; }
+  .tech-card .card-icon { width: 52px; height: 52px; font-size: 1.4rem; margin-bottom: 14px; }
+  .tech-card h3 { font-size: 1.05rem; }
+  .tech-card p { font-size: .9rem; }
+
+  /* 产品 */
+  .product-grid { grid-template-columns: 1fr; gap: 24px; max-width: 420px; margin: 0 auto; }
+  .product-card .product-image { height: 160px; }
+  .product-card .product-info h3 { font-size: 1.1rem; }
+  .product-card .product-info .price { font-size: 1.5rem; }
+
+  /* 合作伙伴 */
+  .partner-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .partner-card { padding: 28px 16px; }
+
+  /* 联系我们 */
+  .contact-grid { grid-template-columns: 1fr; gap: 36px; }
+  .form-row { grid-template-columns: 1fr; }
+  .contact .info-item { gap: 10px; }
+  .contact .info-item .info-icon { width: 36px; height: 36px; font-size: .95rem; }
+
+  /* 页脚 */
+  .footer { padding: 36px 0 20px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 28px; }
+  .footer .footer-bottom { flex-direction: column; text-align: center; gap: 6px; }
+
+  /* 聊天 widget — 手机全屏 */
+  .chat-widget {
+    right: 0; bottom: 0;
+    width: 100vw; height: 100dvh;
+    max-width: 100vw; max-height: 100dvh;
+    border-radius: 0;
+  }
+  .chat-widget .chat-w-header { padding: 12px 16px; }
+  .chat-float-btn { bottom: 18px; right: 18px; width: 50px; height: 50px; font-size: 1.3rem; }
+}
+
+/* ---- 小屏手机 ---- */
+@media (max-width: 480px) {
+  .container { padding: 0 16px; }
+  .section { padding: 44px 0; }
+  .section-header { margin-bottom: 28px; }
+  .section-header h2 { font-size: 1.35rem; }
+
+  /* Hero */
+  .hero { min-height: 88vh; }
+  .hero h1 { font-size: 1.3rem; }
+  .hero p { font-size: .85rem; }
+  .hero p br { display: none; }
+  .hero-stats { flex-direction: row; flex-wrap: wrap; gap: 14px 20px; }
+  .hero-stats .stat .num { font-size: 1.15rem; }
+  .hero-stats .stat .label { font-size: .7rem; }
+  .btn { padding: 12px 22px; font-size: .88rem; }
+
+  /* 关于 */
+  .about .about-text h3 { font-size: 1.2rem; }
+  .about .about-text p { font-size: .9rem; }
+  .about .about-highlights { gap: 10px; }
+  .about .highlight-item { font-size: .78rem; padding: 8px 12px; }
+
+  /* 合作伙伴 — 单列 */
+  .partner-grid { grid-template-columns: 1fr; }
+
+  /* 联系表单 */
+  .contact .contact-form { padding: 22px 18px; }
+  .contact .contact-form h3 { font-size: 1.05rem; }
+  .form-group label { font-size: .82rem; }
+  .form-group input,
+  .form-group textarea { padding: 11px 14px; font-size: 16px; }  /* 16px 防止 iOS 缩放 */
+  .btn-submit { padding: 13px; font-size: .95rem; }
+
+  /* 页脚 */
+  .footer-grid { grid-template-columns: 1fr; gap: 20px; }
+  .footer .footer-brand h3 { font-size: 1.1rem; }
+  .footer .footer-col h4 { font-size: .88rem; margin-bottom: 10px; }
+  .footer .footer-col a { font-size: .82rem; }
+  .footer .footer-bottom { font-size: .78rem; }
+
+  /* 聊天按钮 */
+  .chat-float-btn { bottom: 14px; right: 14px; width: 46px; height: 46px; font-size: 1.2rem; }
+
+  /* 聊天输入防 iOS 缩放 */
+  .chat-widget .cw-input-area textarea { font-size: 16px; }
+}
+
+/* ==========================================================
+   AI Chat Widget (Floating Button + Slide-out Panel)
+   ========================================================== */
+/* 浮动按钮 */
+.chat-float-btn {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: var(--blue-400);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  z-index: 999;
+  box-shadow: 0 4px 20px rgba(37,99,235,.4);
+  transition: transform .2s, box-shadow .2s;
+  display: flex; align-items: center; justify-content: center;
+}
+.chat-float-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 30px rgba(37,99,235,.5);
+}
+.chat-float-btn .unread-dot {
+  position: absolute;
+  top: 6px; right: 6px;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: #ef4444;
+  border: 2px solid #fff;
+  display: none;
+}
+.chat-float-btn .unread-dot.show { display: block; }
+
+/* 聊天面板 */
+.chat-widget {
+  position: fixed;
+  bottom: 96px; right: 24px;
+  width: 400px; max-width: calc(100vw - 32px);
+  height: 560px; max-height: calc(100dvh - 140px);
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 12px 48px rgba(0,0,0,.18);
+  z-index: 998;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  transform: translateY(20px) scale(.95);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform .3s ease, opacity .3s ease;
+}
+.chat-widget.open {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* 聊天头部 */
+.chat-widget .chat-w-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 18px;
+  background: linear-gradient(135deg, var(--blue-400), #6366f1);
+  color: #fff;
+  flex-shrink: 0;
+}
+.chat-widget .chat-w-header .cw-logo {
+  width: 36px; height: 36px; border-radius: 8px;
+  background: rgba(255,255,255,.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; flex-shrink: 0;
+  overflow: hidden;
+}
+.chat-widget .chat-w-header .cw-logo img {
+  width: 100%; height: 100%; object-fit: contain;
+}
+.chat-widget .chat-w-header .cw-title { font-weight: 700; font-size: .95rem; }
+.chat-widget .chat-w-header .cw-sub { font-size: .7rem; opacity: .8; }
+.chat-widget .chat-w-close {
+  margin-left: auto; background: rgba(255,255,255,.15);
+  border: none; color: #fff; width: 30px; height: 30px;
+  border-radius: 50%; cursor: pointer; font-size: 1rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .2s;
+}
+.chat-widget .chat-w-close:hover { background: rgba(255,255,255,.3); }
+
+/* 消息区 */
+.chat-widget .cw-messages {
+  flex: 1; overflow-y: auto; padding: 16px;
+  background: #f4f6f8; display: flex; flex-direction: column; gap: 12px;
+  -webkit-overflow-scrolling: touch;
+}
+.chat-widget .cw-messages::-webkit-scrollbar { width: 4px; }
+.chat-widget .cw-messages::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 2px; }
+
+.cw-msg {
+  display: flex; gap: 8px; max-width: 90%;
+  animation: cwFadeUp .3s ease;
+}
+@keyframes cwFadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.cw-msg.user { align-self: flex-end; flex-direction: row-reverse; }
+.cw-msg.assistant { align-self: flex-start; }
+
+.cw-msg .cw-avatar {
+  width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .7rem; font-weight: 700; color: #fff;
+}
+.cw-msg.user .cw-avatar { background: var(--blue-400); }
+.cw-msg.assistant .cw-avatar { background: #6366f1; }
+
+.cw-msg .cw-bubble {
+  padding: 10px 14px; border-radius: 14px;
+  font-size: .88rem; line-height: 1.6;
+  word-break: break-word;
+}
+.cw-msg.user .cw-bubble { background: var(--blue-400); color: #fff; border-bottom-right-radius: 4px; }
+.cw-msg.assistant .cw-bubble { background: #fff; color: var(--text-primary); border-bottom-left-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+
+.cw-msg .cw-bubble .cw-quick {
+  display: block; color: var(--blue-500); cursor: pointer;
+  padding: 3px 0; transition: color .15s;
+}
+.cw-msg .cw-bubble .cw-quick:hover { color: var(--blue-700); text-decoration: underline; }
+
+/* 思考动画 */
+.cw-thinking {
+  align-self: flex-start; display: flex; align-items: center; gap: 6px;
+  padding: 10px 14px; background: #fff; border-radius: 14px;
+  font-size: .8rem; color: var(--gray-400); box-shadow: 0 1px 3px rgba(0,0,0,.06);
+}
+.cw-thinking .cw-dots { display: flex; gap: 3px; }
+.cw-thinking .cw-dots span {
+  width: 6px; height: 6px; border-radius: 50%; background: #94a3b8;
+  animation: cwBounce 1.2s infinite;
+}
+.cw-thinking .cw-dots span:nth-child(2) { animation-delay: .2s; }
+.cw-thinking .cw-dots span:nth-child(3) { animation-delay: .4s; }
+@keyframes cwBounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-6px); }
+}
+
+/* 输入区 */
+.chat-widget .cw-input-area {
+  padding: 12px 14px; border-top: 1px solid var(--border);
+  display: flex; gap: 8px; align-items: flex-end; flex-shrink: 0;
+}
+.chat-widget .cw-input-area textarea {
+  flex: 1; resize: none; padding: 10px 14px;
+  border: 1px solid var(--border); border-radius: 20px;
+  font-size: .9rem; line-height: 1.4; font-family: inherit;
+  outline: none; max-height: 100px; min-height: 38px;
+  transition: border-color .2s;
+}
+.chat-widget .cw-input-area textarea:focus { border-color: var(--blue-400); }
+.chat-widget .cw-input-area button {
+  width: 38px; height: 38px; border-radius: 50%;
+  border: none; background: var(--blue-400); color: #fff;
+  font-size: 1rem; cursor: pointer; flex-shrink: 0;
+  transition: background .2s; display: flex; align-items: center; justify-content: center;
+}
+.chat-widget .cw-input-area button:hover { background: var(--blue-500); }
+.chat-widget .cw-input-area button:disabled { background: #a5b4fc; cursor: not-allowed; }
+
+@media (max-width: 480px) {
+  .chat-widget {
+    right: 8px; bottom: 80px;
+    width: calc(100vw - 16px); height: 460px;
+  }
+  .chat-float-btn { bottom: 16px; right: 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     Navigation Bar
+     ============================================================ -->
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <a href="#" class="nav-logo">
+      <img src="77482fb7796b140e9a3f6bd1ac2c504f.png" alt="固锂芯安" class="logo-img">
+      <span>固锂芯安</span>
+    </a>
+
+    <button class="hamburger" id="hamburger" aria-label="菜单">
+      <span></span><span></span><span></span>
+    </button>
+
+    <div class="nav-links" id="navLinks">
+      <a href="#home" class="active" data-section="home">首页</a>
+      <a href="#products" data-section="products">产品中心</a>
+      <a href="#market" data-section="market">市场信息</a>
+      <a href="#news" data-section="news">新闻资讯</a>
+      <a href="#about" data-section="about">关于我们</a>
+      <a href="#contact" data-section="contact">联系我们</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================================================
+     Section 1: Hero
+     ============================================================ -->
+<section class="hero" id="home">
+  <div class="glow-bottom"></div>
+  <div class="container">
+    <div class="badge">🔋 固态电池正极材料 · 创新领航</div>
+    <h1>全固态电池<span>干法复合正极极片</span>领航者</h1>
+    <p>专注于高比能、高安全固态电池正极材料研发与生产<br>致力于成为干法复合正极极片领域的全球领导者</p>
+    <div class="btn-group">
+      <a href="#about" class="btn btn-primary">了解更多</a>
+      <a href="#contact" class="btn btn-outline">联系我们</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="num">7+</div>
+        <div class="label">SCI一区TOP论文</div>
+      </div>
+      <div class="stat">
+        <div class="num">2+</div>
+        <div class="label">发明专利</div>
+      </div>
+      <div class="stat">
+        <div class="num">96%</div>
+        <div class="label">产品良品率</div>
+      </div>
+      <div class="stat">
+        <div class="num">1000mm</div>
+        <div class="label">宽幅生产能力</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <div class="mouse"></div>
+    <span>向下滚动</span>
+  </div>
+</section>
+
+<!-- ============================================================
+     Section 2: About Us
+     ============================================================ -->
+<section class="section about" id="about">
+  <div class="container">
+    <div class="section-header">
+      <h2>关于固锂芯安</h2>
+      <p>源自华南师范大学的新能源材料创新团队</p>
+    </div>
+    <div class="about-grid">
+      <div class="about-text animate">
+        <h3>驱动未来，芯安天下</h3>
+        <p>
+          固锂芯安是一支专注于全固态电池干法复合正极极片研发、生产与销售的高科技团队，致力于成为干法复合正极极片领域的领航者。
+        </p>
+        <p>
+          核心团队来自华南师范大学，在新能源材料领域拥有深厚积累，已发表SCI一区TOP论文7篇，申请发明专利2项。团队以"高比能、高安全"为核心理念，推动固态电池正极材料技术的产业化进程。
+        </p>
+        <div class="about-highlights">
+          <div class="highlight-item">
+            <span class="icon">🏫</span> 华南师范大学
+          </div>
+          <div class="highlight-item">
+            <span class="icon">📄</span> 7篇SCI一区TOP
+          </div>
+          <div class="highlight-item">
+            <span class="icon">🔬</span> 2项发明专利
+          </div>
+        </div>
+      </div>
+      <div class="about-image animate animate-delay-1">
+        <div class="image-placeholder">
+          <div class="icon-big">🔋</div>
+          <div class="img-label">固态电池正极材料</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     Section 3: Core Technology
+     ============================================================ -->
+<section class="section tech" id="tech">
+  <div class="container">
+    <div class="section-header">
+      <h2>三大核心技术</h2>
+      <p>突破性创新，定义固态电池正极新标准</p>
+    </div>
+    <div class="tech-grid">
+      <!-- 技术1 -->
+      <div class="tech-card animate">
+        <div class="card-icon">⚡</div>
+        <h3>电子-离子双高效传输网络</h3>
+        <p>PANI构建电子导电网络，LLZO提供锂离子通道，实现电子与离子的双高效传输，解决传统正极材料导电性不足的痛点。</p>
+        <span class="card-tag">核心专利</span>
+      </div>
+      <!-- 技术2 -->
+      <div class="tech-card animate animate-delay-1">
+        <div class="card-icon">🛡️</div>
+        <h3>双功能LMO包覆层</h3>
+        <p>尖晶石LMO提供3D锂离子扩散网络，同时作为机械缓冲层保护电极结构，显著提升循环稳定性和倍率性能。</p>
+        <span class="card-tag">独创工艺</span>
+      </div>
+      <!-- 技术3 -->
+      <div class="tech-card animate animate-delay-2">
+        <div class="card-icon">🏭</div>
+        <h3>六辊连续化压延系统（SEMC）</h3>
+        <p>支持1000mm宽幅生产，厚度公差精确控制在±5µm以内，良品率高达96%，实现高效率、低成本的规模化量产。</p>
+        <span class="card-tag">量产设备</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     Section 4: Hot Products
+     ============================================================ -->
+<section class="section products" id="products">
+  <div class="container">
+    <div class="section-header">
+      <h2>热销产品</h2>
+      <p>覆盖消费电子与动力电池两大应用场景</p>
+    </div>
+    <div class="product-grid">
+      <!-- 产品1 -->
+      <div class="product-card animate">
+        <div class="product-image">
+          <span class="product-badge">消费电池</span>
+          <span class="icon">📱</span>
+        </div>
+        <div class="product-info">
+          <h3>GN-050系列正极片</h3>
+          <div class="price">3.9<span class="price-unit"> 元/Wh</span></div>
+          <p>适用于3C电子产品的消费电池，包括手机、笔记本电脑等便携式电子设备，提供更长的续航能力和更高的安全性。</p>
+          <div class="feature-list">
+            <span>🔋 高能量密度</span>
+            <span>🛡️ 本质安全</span>
+            <span>📱 3C消费电子</span>
+          </div>
+        </div>
+      </div>
+      <!-- 产品2 -->
+      <div class="product-card animate animate-delay-1">
+        <div class="product-image">
+          <span class="product-badge">动力电池</span>
+          <span class="icon">🚗</span>
+        </div>
+        <div class="product-info">
+          <h3>GN-500系列正极片</h3>
+          <div class="price">3.9<span class="price-unit"> 元/Wh</span></div>
+          <p>适用于电动汽车、电动自行车等动力电池的组装，满足高倍率充放电需求，助力绿色出行和能源转型。</p>
+          <div class="feature-list">
+            <span>⚡ 高倍率充放</span>
+            <span>🚗 电动汽车</span>
+            <span>🔄 长循环寿命</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     Section 5: Partners
+     ============================================================ -->
+<section class="section partners" id="partners">
+  <div class="container">
+    <div class="section-header">
+      <h2>合作伙伴</h2>
+      <p>与行业领军企业携手推动固态电池产业化</p>
+    </div>
+    <div class="partner-grid">
+      <div class="partner-card animate">
+        <div class="partner-icon">🏢</div>
+        <div class="partner-name">广汽研究院</div>
+        <div class="partner-desc">战略合作伙伴</div>
+      </div>
+      <div class="partner-card animate animate-delay-1">
+        <div class="partner-icon">🔬</div>
+        <div class="partner-name">天赐材料</div>
+        <div class="partner-desc">深度合作企业</div>
+      </div>
+      <div class="partner-card animate animate-delay-2">
+        <div class="partner-icon">⚡</div>
+        <div class="partner-name">鹏辉能源</div>
+        <div class="partner-desc">产业合作伙伴</div>
+      </div>
+      <div class="partner-card animate animate-delay-3">
+        <div class="partner-icon">🔋</div>
+        <div class="partner-name">耐普新能源</div>
+        <div class="partner-desc">技术合作企业</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     Section 6: Market Info (placeholder via nav)
+     ============================================================ -->
+<section class="section tech" id="market" style="background: var(--gray-50);">
+  <div class="container">
+    <div class="section-header">
+      <h2>市场信息</h2>
+      <p>固态电池行业前景与市场动态</p>
+    </div>
+    <div class="tech-grid">
+      <div class="tech-card animate">
+        <div class="card-icon">📈</div>
+        <h3>千亿级市场蓝海</h3>
+        <p>全球固态电池市场规模预计2030年突破1500亿元，年复合增长率超过40%，正极材料是产业链核心环节。</p>
+        <span class="card-tag">市场前景</span>
+      </div>
+      <div class="tech-card animate animate-delay-1">
+        <div class="card-icon">🌍</div>
+        <h3>政策强力驱动</h3>
+        <p>中国"十四五"规划将固态电池列为前沿储能技术重点方向，多项国家级政策持续加码推动产业化进程。</p>
+        <span class="card-tag">政策利好</span>
+      </div>
+      <div class="tech-card animate animate-delay-2">
+        <div class="card-icon">🏭</div>
+        <h3>产业链加速成型</h3>
+        <p>从上游原材料到下游整车厂，固态电池产业链日趋成熟，干法工艺凭借降本增效优势成为行业主流方向。</p>
+        <span class="card-tag">产业趋势</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     Section 7: News (placeholder via nav)
+     ============================================================ -->
+<section class="section" id="news" style="background: var(--white);">
+  <div class="container">
+    <div class="section-header">
+      <h2>新闻资讯</h2>
+      <p>固锂芯安最新动态与行业前沿</p>
+    </div>
+    <div class="tech-grid">
+      <div class="tech-card animate">
+        <div class="card-icon">📰</div>
+        <h3>固锂芯安团队荣获大学生创新创业大赛金奖</h3>
+        <p>团队凭借"全固态电池干法复合正极极片"项目在省级大学生创新创业大赛中脱颖而出，斩获金奖。</p>
+        <span class="card-tag">2026-06</span>
+      </div>
+      <div class="tech-card animate animate-delay-1">
+        <div class="card-icon">🤝</div>
+        <h3>与广汽研究院达成战略合作</h3>
+        <p>固锂芯安与广汽研究院签署合作协议，共同推进固态电池正极材料在新能源汽车中的应用验证。</p>
+        <span class="card-tag">2026-05</span>
+      </div>
+      <div class="tech-card animate animate-delay-2">
+        <div class="card-icon">🏆</div>
+        <h3>新增2项发明专利获得受理</h3>
+        <p>团队提交的"干法复合正极极片制备方法"和"双功能包覆层材料"两项发明专利已被国家知识产权局受理。</p>
+        <span class="card-tag">2026-04</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     Section 8: Contact Us
+     ============================================================ -->
+<section class="section contact" id="contact">
+  <div class="container">
+    <div class="section-header">
+      <h2>联系我们</h2>
+      <p>期待与您携手，共创固态电池新未来</p>
+    </div>
+    <div class="contact-grid">
+      <!-- 左侧：公司信息 -->
+      <div class="contact-info animate">
+        <h3>联系方式</h3>
+        <p>如有合作意向或产品咨询，欢迎随时与我们联系</p>
+        <div class="info-list">
+          <div class="info-item">
+            <div class="info-icon">📍</div>
+            <div>
+              <h4>地址</h4>
+              <p>广东省广州市番禺区大学城外环西路378号</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">📮</div>
+            <div>
+              <h4>邮编</h4>
+              <p>511400</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">📞</div>
+            <div>
+              <h4>电话</h4>
+              <p>（+86）18529292632 / 胡先生</p>
+              <p>（+86）13827503816 / 陈先生</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">✉️</div>
+            <div>
+              <h4>邮箱</h4>
+              <p>20212434004@m.scnu.edu.cn</p>
+              <p>20210740031@m.scnu.edu.cn</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 右侧：留言表单 -->
+      <div class="contact-form animate animate-delay-1" id="contactFormWrapper">
+        <h3>在线留言</h3>
+        <form id="contactForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">姓名</label>
+              <input type="text" id="name" placeholder="请输入您的姓名" required>
+            </div>
+            <div class="form-group">
+              <label for="email">邮箱</label>
+              <input type="email" id="email" placeholder="请输入您的邮箱" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="phone">电话</label>
+            <input type="tel" id="phone" placeholder="请输入您的电话">
+          </div>
+          <div class="form-group">
+            <label for="message">内容</label>
+            <textarea id="message" placeholder="请输入您想要咨询的内容…" required></textarea>
+          </div>
+          <button type="submit" class="btn-submit">提交留言</button>
+        </form>
+        <div class="form-success" id="formSuccess">
+          ✅ 留言成功！感谢您的咨询，我们将尽快与您联系。
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     Footer
+     ============================================================ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>🔋 固锂芯安</h3>
+        <p>全固态电池干法复合正极极片领航者。<br>专注高比能、高安全固态电池正极材料。</p>
+      </div>
+      <div class="footer-col">
+        <h4>快速导航</h4>
+        <a href="#home">首页</a>
+        <a href="#products">产品中心</a>
+        <a href="#about">关于我们</a>
+        <a href="#contact">联系我们</a>
+      </div>
+      <div class="footer-col">
+        <h4>产品中心</h4>
+        <a href="#products">GN-050系列正极片</a>
+        <a href="#products">GN-500系列正极片</a>
+        <a href="#tech">核心技术</a>
+        <a href="#market">市场信息</a>
+      </div>
+      <div class="footer-col">
+        <h4>联系方式</h4>
+        <a>📍 广州大学城</a>
+        <a>📞 18529292632</a>
+        <a>✉️ 20212434004@m.scnu.edu.cn</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 固锂芯安. All Rights Reserved.</span>
+      <span class="slogan">⚡ 驱动未来，芯安天下</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     AI Chat Widget
+     ============================================================ -->
+<!-- 浮动按钮 -->
+<button class="chat-float-btn" id="chatFloatBtn" title="AI 智能客服">
+  💬
+  <span class="unread-dot" id="unreadDot"></span>
+</button>
+
+<!-- 聊天面板 -->
+<div class="chat-widget" id="chatWidget">
+  <div class="chat-w-header">
+    <div class="cw-logo">
+      <img src="77482fb7796b140e9a3f6bd1ac2c504f.png" alt="固锂芯安">
+    </div>
+    <div>
+      <div class="cw-title">固锂芯安 AI 客服</div>
+      <div class="cw-sub">7×24h 在线 · 秒回复</div>
+    </div>
+    <button class="chat-w-close" id="chatCloseBtn">✕</button>
+  </div>
+  <div class="cw-messages" id="cwMessages">
+    <!-- 开场白 -->
+    <div class="cw-msg assistant">
+      <div class="cw-avatar">AI</div>
+      <div>
+        <div class="cw-bubble">
+          您好！欢迎来到固锂芯安 🔋<br><br>
+          我们专注于高比能、高安全固态电池正极材料的研发与生产。请问您想了解什么？<br><br>
+          🔋 <b>产品咨询</b><br>
+          <span class="cw-quick">GL-HE和GL-HP有什么区别？</span>
+          <span class="cw-quick">产品的核心性能指标有哪些？</span><br>
+          ⚙️ <b>技术解读</b><br>
+          <span class="cw-quick">三大核心技术是什么？</span>
+          <span class="cw-quick">干法工艺相比传统湿法有什么优势？</span><br>
+          🤝 <b>合作与采购</b><br>
+          <span class="cw-quick">产品价格是多少？怎么购买？</span>
+          <span class="cw-quick">你们和哪些企业合作过？</span><br>
+          💡 您也可以直接输入您关心的问题
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cw-input-area">
+    <textarea id="cwInput" rows="1" placeholder="输入您的问题…" maxlength="2000"></textarea>
+    <button id="cwSendBtn">➤</button>
+  </div>
+</div>
+
+<!-- ============================================================
+     JavaScript
+     ============================================================ -->
+<script>
+(function() {
+  'use strict';
+
+  /* ==========================================================
+     Navigation Bar Scroll Effect
+     ========================================================== */
+  const navbar = document.getElementById('navbar');
+
+  function updateNavbarShadow() {
+    if (window.scrollY > 10) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  }
+  window.addEventListener('scroll', updateNavbarShadow, { passive: true });
+
+  /* ==========================================================
+     Mobile Hamburger Menu
+     ========================================================== */
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+
+  hamburger.addEventListener('click', function() {
+    hamburger.classList.toggle('active');
+    navLinks.classList.toggle('show');
+  });
+
+  // Click nav link → close mobile menu
+  navLinks.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      hamburger.classList.remove('active');
+      navLinks.classList.remove('show');
+    });
+  });
+
+  /* ==========================================================
+     Active Nav Link on Scroll (Intersection Observer)
+     ========================================================== */
+  const sections = document.querySelectorAll('section[id]');
+  const navAs = document.querySelectorAll('.nav-links a');
+
+  const observerOptions = {
+    root: null,
+    rootMargin: '-50% 0px -50% 0px',  // 元素到达视口中间才触发
+    threshold: 0,
+  };
+
+  const sectionObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (!entry.isIntersecting) return;
+      var id = entry.target.getAttribute('id');
+      navAs.forEach(function(a) {
+        a.classList.toggle('active', a.getAttribute('data-section') === id);
+      });
+    });
+  }, observerOptions);
+
+  sections.forEach(function(section) {
+    sectionObserver.observe(section);
+  });
+
+  /* ==========================================================
+     Scroll Animation (fade-in on scroll)
+     ========================================================== */
+  const animElements = document.querySelectorAll('.animate');
+  const animObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // Don't unobserve — elements may re-trigger if needed
+      }
+    });
+  }, { root: null, threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  animElements.forEach(function(el) {
+    animObserver.observe(el);
+  });
+
+  /* ==========================================================
+     Contact Form Submit
+     ========================================================== */
+  const contactForm = document.getElementById('contactForm');
+  const formSuccess = document.getElementById('formSuccess');
+
+  contactForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // 简单的前端模拟提交
+    var name = document.getElementById('name').value.trim();
+    var email = document.getElementById('email').value.trim();
+    var phone = document.getElementById('phone').value.trim();
+    var message = document.getElementById('message').value.trim();
+
+    if (!name || !email || !message) {
+      alert('请填写姓名、邮箱和内容后再提交。');
+      return;
+    }
+
+    // 模拟提交延迟
+    var submitBtn = contactForm.querySelector('.btn-submit');
+    var originalText = submitBtn.textContent;
+    submitBtn.textContent = '提交中…';
+    submitBtn.disabled = true;
+
+    setTimeout(function() {
+      // 隐藏表单，显示成功信息
+      contactForm.style.display = 'none';
+      formSuccess.classList.add('show');
+      console.log('📨 留言提交:', { name: name, email: email, phone: phone, message: message });
+    }, 600);
+  });
+
+  /* ==========================================================
+     Smooth Scroll
+     ========================================================== */
+  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+    anchor.addEventListener('click', function(e) {
+      var targetId = this.getAttribute('href');
+      if (targetId === '#') return;
+      var target = document.querySelector(targetId);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+  /* ==========================================================
+     AI Chat Widget
+     ========================================================== */
+  var chatFloatBtn = document.getElementById('chatFloatBtn');
+  var chatWidget   = document.getElementById('chatWidget');
+  var chatCloseBtn = document.getElementById('chatCloseBtn');
+  var cwMessages   = document.getElementById('cwMessages');
+  var cwInput      = document.getElementById('cwInput');
+  var cwSendBtn    = document.getElementById('cwSendBtn');
+  var unreadDot    = document.getElementById('unreadDot');
+
+  var chatOpen     = false;
+  var chatWaiting  = false;
+  var chatHistory  = [];
+  var conversationId = '';
+
+  // 配置
+  var CHAT_CONFIG = {
+    BOT_ID:  '7652332617366568979',
+    API_BASE: '/api/chat',
+    USER_ID: 'web-user-' + Math.random().toString(36).slice(2, 10),
+  };
+
+  // 打开/关闭聊天
+  chatFloatBtn.addEventListener('click', function() {
+    chatOpen = !chatOpen;
+    if (chatOpen) {
+      chatWidget.classList.add('open');
+      chatFloatBtn.style.display = 'none';
+      unreadDot.classList.remove('show');
+      cwInput.focus();
+    } else {
+      chatWidget.classList.remove('open');
+      chatFloatBtn.style.display = 'flex';
+    }
+  });
+
+  chatCloseBtn.addEventListener('click', function() {
+    chatOpen = false;
+    chatWidget.classList.remove('open');
+    chatFloatBtn.style.display = 'flex';
+  });
+
+  // 工具函数
+  function cwScrollBottom() {
+    cwMessages.scrollTop = cwMessages.scrollHeight;
+  }
+
+  function cwAddMsg(role, content) {
+    var div = document.createElement('div');
+    div.className = 'cw-msg ' + role;
+    var avatar = role === 'user' ? '我' : 'AI';
+    div.innerHTML =
+      '<div class="cw-avatar">' + avatar + '</div>' +
+      '<div class="cw-bubble">' + content + '</div>';
+    cwMessages.appendChild(div);
+    cwScrollBottom();
+  }
+
+  function cwShowThinking() {
+    var div = document.createElement('div');
+    div.className = 'cw-thinking';
+    div.id = 'cwThinking';
+    div.innerHTML = '思考中&nbsp;<div class="cw-dots"><span></span><span></span><span></span></div>';
+    cwMessages.appendChild(div);
+    cwScrollBottom();
+    return div;
+  }
+
+  function cwHideThinking(el) {
+    if (el && el.parentNode) el.remove();
+  }
+
+  function cwSimpleMD(text) {
+    // 简单 markdown：**粗体**、换行
+    return text
+      .replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')
+      .replace(/\n/g, '<br>');
+  }
+
+  // 调用 Coze API（通过代理）
+  async function cwCallAPI(userText) {
+    var body = {
+      bot_id: CHAT_CONFIG.BOT_ID,
+      user_id: CHAT_CONFIG.USER_ID,
+      query: userText,
+      chat_history: chatHistory,
+    };
+    if (conversationId) body.conversation_id = conversationId;
+
+    var resp;
+    try {
+      resp = await fetch(CHAT_CONFIG.API_BASE, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+    } catch (netErr) {
+      throw new Error('网络连接失败，请刷新页面重试。');
+    }
+
+    var text;
+    try {
+      text = await resp.text();
+    } catch (readErr) {
+      throw new Error('服务器响应异常，请稍后重试。');
+    }
+
+    // 尝试解析 JSON
+    var data;
+    try {
+      data = JSON.parse(text);
+    } catch (jsonErr) {
+      // 服务器返回了非 JSON 内容（通常是 HTML 错误页或 502）
+      if (text.indexOf('COZE_TOKEN') !== -1 || text.indexOf('未配置') !== -1) {
+        throw new Error('后端 COZE_TOKEN 未配置，请在 Render 环境变量中设置。');
+      }
+      console.error('服务器返回非 JSON:', text.substring(0, 300));
+      throw new Error('服务器返回异常（HTTP ' + resp.status + '），请检查 Render 日志。');
+    }
+
+    if (!resp.ok || (data.code !== undefined && data.code !== 0)) {
+      throw new Error(data.msg || data.message || 'API错误 [' + (data.code || resp.status) + ']');
+    }
+    if (data.conversation_id) conversationId = data.conversation_id;
+    return data.reply || '';
+  }
+
+  // 发送消息
+  async function cwSend() {
+    var text = cwInput.value.trim();
+    if (!text || chatWaiting) return;
+
+    cwInput.value = '';
+    cwInput.style.height = 'auto';
+    chatWaiting = true;
+    cwSendBtn.disabled = true;
+
+    cwAddMsg('user', text);
+    chatHistory.push({ role: 'user', content: text });
+    if (chatHistory.length > 40) chatHistory = chatHistory.slice(-40);
+
+    var thinkingEl = cwShowThinking();
+
+    try {
+      var reply = await cwCallAPI(text);
+      cwHideThinking(thinkingEl);
+      cwAddMsg('assistant', cwSimpleMD(reply));
+      chatHistory.push({ role: 'assistant', content: reply });
+      if (chatHistory.length > 40) chatHistory = chatHistory.slice(-40);
+    } catch (err) {
+      cwHideThinking(thinkingEl);
+      var errMsg = err.message;
+      if (errMsg.indexOf('Failed to fetch') !== -1 || errMsg.indexOf('NetworkError') !== -1) {
+        errMsg = '无法连接到服务器。请确保已执行 <b>node server.js</b> 启动后端服务，然后将浏览器访问 <b>http://localhost:3000</b> 而非直接打开文件。';
+      }
+      cwAddMsg('assistant', '⚠️ ' + errMsg);
+    } finally {
+      chatWaiting = false;
+      cwSendBtn.disabled = false;
+      cwInput.focus();
+    }
+  }
+
+  cwSendBtn.addEventListener('click', cwSend);
+  cwInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      cwSend();
+    }
+  });
+  cwInput.addEventListener('input', function() {
+    this.style.height = 'auto';
+    this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+  });
+
+  // 点击快捷问题
+  cwMessages.addEventListener('click', function(e) {
+    if (e.target.classList.contains('cw-quick')) {
+      if (chatWaiting) return;
+      cwInput.value = e.target.textContent.trim();
+      cwSend();
+    }
+  });
+
+})();
+</script>
+
+</body>
+</html>
