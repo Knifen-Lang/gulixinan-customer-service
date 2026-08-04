@@ -206,9 +206,9 @@ ul { list-style: none; }
 }
 
 .nav-links a {
-  padding: 8px 18px;
+  padding: 8px 12px;
   border-radius: 8px;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 500;
   color: var(--gray-600);
   transition: color 0.2s, background 0.2s;
@@ -511,25 +511,21 @@ ul { list-style: none; }
   width: 100%;
   max-width: 480px;
   aspect-ratio: 4 / 3;
-  background: linear-gradient(135deg, var(--blue-25) 0%, var(--blue-50) 50%, #e0e7ff 100%);
+  background: #fafbfc;
   border-radius: var(--radius-lg);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 16px;
-  box-shadow: var(--shadow-lg);
-  position: relative;
-  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  border: 1px solid var(--border);
 }
 
-.about .image-placeholder::before {
-  content: '';
-  position: absolute;
-  top: -40px; right: -40px;
-  width: 140px; height: 140px;
-  border-radius: 50%;
-  background: rgba(37,99,235,.08);
+.about .image-placeholder:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 48px rgba(0,0,0,.15);
 }
 
 .about .image-placeholder .icon-big {
@@ -567,6 +563,8 @@ ul { list-style: none; }
   transition: transform 0.3s, box-shadow 0.3s;
   border: 1px solid var(--border);
   text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .tech-card:hover {
@@ -601,13 +599,14 @@ ul { list-style: none; }
 
 .tech-card .card-tag {
   display: inline-block;
-  margin-top: 16px;
+  margin-top: auto;
   padding: 4px 12px;
   border-radius: 20px;
   font-size: 0.78rem;
   font-weight: 500;
   background: var(--blue-25);
   color: var(--blue-600);
+  align-self: center;
 }
 
 /* ==========================================================
@@ -728,7 +727,7 @@ ul { list-style: none; }
 
 .partner-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 24px;
 }
 
@@ -739,6 +738,9 @@ ul { list-style: none; }
   text-align: center;
   border: 1px solid var(--border);
   transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .partner-card:hover {
@@ -747,8 +749,13 @@ ul { list-style: none; }
 }
 
 .partner-card .partner-icon {
+  width: 80px; height: 80px;
+  border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 14px;
   font-size: 2.5rem;
-  margin-bottom: 12px;
+  overflow: hidden;
+  background: var(--gray-50);
 }
 
 .partner-card .partner-name {
@@ -950,12 +957,15 @@ ul { list-style: none; }
 }
 
 .footer .footer-col a {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 6px;
   padding: 4px 0;
   font-size: 0.88rem;
   color: var(--blue-100);
   opacity: 0.7;
   transition: opacity 0.2s, color 0.2s;
+  white-space: nowrap;
 }
 
 .footer .footer-col a:hover {
@@ -1076,6 +1086,7 @@ ul { list-style: none; }
   .product-card .product-info .price { font-size: 1.5rem; }
 
   /* 合作伙伴 — 平板2列 */
+  .partner-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
   .partner-card { padding: 28px 16px; }
 
   /* 联系我们 */
@@ -1338,10 +1349,12 @@ ul { list-style: none; }
 
     <div class="nav-links" id="navLinks">
       <a href="#home" class="active" data-section="home">首页</a>
+      <a href="#about" data-section="about">关于我们</a>
+      <a href="#tech" data-section="tech">核心技术</a>
       <a href="#products" data-section="products">产品中心</a>
+      <a href="#partners" data-section="partners">合作伙伴</a>
       <a href="#market" data-section="market">市场信息</a>
       <a href="#news" data-section="news">新闻资讯</a>
-      <a href="#about" data-section="about">关于我们</a>
       <a href="#contact" data-section="contact">联系我们</a>
     </div>
   </div>
@@ -1421,9 +1434,14 @@ ul { list-style: none; }
         </p>
       </div>
       <div class="about-image animate animate-delay-1">
-        <div class="image-placeholder">
-          <div class="icon-big">🔋</div>
-          <div class="img-label">固态电池正极材料</div>
+        <div class="image-placeholder" style="flex-direction: column; gap: 20px;">
+          <img src="团队logo.png" alt="固锂芯安" style="width: 65%; height: auto; position: relative; z-index: 1;">
+          <div style="position:relative;z-index:1;text-align:center;padding:0 12px;">
+            <p style="font-size:0.85rem;color:var(--gray-500);line-height:1.7;margin:0;">
+              <strong style="color:var(--blue-600);">固锂</strong> · 深耕固态电池正极结构设计<br>
+              <strong style="color:var(--blue-600);">芯安</strong> · 让每一份能源用得安心
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -1524,29 +1542,24 @@ ul { list-style: none; }
     </div>
     <div class="partner-grid">
       <div class="partner-card animate">
-        <div class="partner-icon">🏢</div>
+        <div class="partner-icon"><img src="广汽研究院.jpg" alt="广汽研究院" style="width:100%;height:100%;object-fit:contain;"></div>
         <div class="partner-name">广汽研究院</div>
         <div class="partner-desc">战略合作伙伴</div>
       </div>
       <div class="partner-card animate animate-delay-1">
-        <div class="partner-icon">🔬</div>
+        <div class="partner-icon"><img src="天赐材料.jpg" alt="天赐材料" style="width:100%;height:100%;object-fit:contain;"></div>
         <div class="partner-name">天赐材料</div>
         <div class="partner-desc">深度合作企业</div>
       </div>
       <div class="partner-card animate animate-delay-2">
-        <div class="partner-icon">⚡</div>
+        <div class="partner-icon"><img src="鹏辉能源.jpg" alt="鹏辉能源" style="width:100%;height:100%;object-fit:contain;"></div>
         <div class="partner-name">鹏辉能源</div>
         <div class="partner-desc">产业合作伙伴</div>
       </div>
       <div class="partner-card animate animate-delay-3">
-        <div class="partner-icon">🔋</div>
+        <div class="partner-icon"><img src="耐普新能源.jpg" alt="耐普新能源" style="width:100%;height:100%;object-fit:contain;"></div>
         <div class="partner-name">耐普新能源</div>
         <div class="partner-desc">技术合作企业</div>
-      </div>
-      <div class="partner-card animate animate-delay-4">
-        <div class="partner-icon">🧪</div>
-        <div class="partner-name">聚石化学</div>
-        <div class="partner-desc">深度合作企业</div>
       </div>
     </div>
   </div>
