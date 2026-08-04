@@ -295,7 +295,7 @@ ul { list-style: none; }
   position: relative;
   z-index: 1;
   text-align: center;
-  max-width: 800px;
+  max-width: 1000px;
 }
 
 .hero .badge {
@@ -312,26 +312,28 @@ ul { list-style: none; }
 }
 
 .hero h1 {
-  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-size: clamp(2.4rem, 5.5vw, 3.6rem);
   font-weight: 800;
   color: var(--gray-900);
-  line-height: 1.3;
-  margin-bottom: 20px;
-  letter-spacing: -1px;
+  line-height: 1.25;
+  margin-bottom: 24px;
+  letter-spacing: 1px;
 }
 
-.hero h1 span {
-  background: linear-gradient(135deg, #2563eb, #6366f1);
+.hero h1 .highlight {
+  background: linear-gradient(135deg, #2563eb 0%, #6366f1 50%, #7c3aed 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.hero p {
-  font-size: 1.15rem;
+.hero .hero-subtitle {
+  font-size: 1.2rem;
   color: var(--gray-500);
-  margin-bottom: 40px;
-  line-height: 1.8;
+  margin-bottom: 48px;
+  line-height: 1.9;
+  font-weight: 400;
+  letter-spacing: 0.5px;
 }
 
 .hero .btn-group {
@@ -580,9 +582,9 @@ ul { list-style: none; }
   font-size: 1.8rem;
 }
 
-.tech-card:nth-child(1) .card-icon { background: rgba(37,99,235,.1); }
-.tech-card:nth-child(2) .card-icon { background: rgba(99,102,241,.1); }
-.tech-card:nth-child(3) .card-icon { background: rgba(14,165,233,.1); }
+.tech-card:nth-child(1) .card-icon { background: #fff; }
+.tech-card:nth-child(2) .card-icon { background: #fff; }
+.tech-card:nth-child(3) .card-icon { background: #fff; }
 
 .tech-card h3 {
   font-size: 1.15rem;
@@ -648,13 +650,13 @@ ul { list-style: none; }
 }
 
 .product-card:nth-child(1) .product-badge {
-  background: rgba(37,99,235,.12);
-  color: var(--blue-600);
+  background: #2563eb;
+  color: #fff;
 }
 
 .product-card:nth-child(2) .product-badge {
-  background: rgba(99,102,241,.12);
-  color: #4f46e5;
+  background: #7c3aed;
+  color: #fff;
 }
 
 .product-card .product-image {
@@ -726,7 +728,7 @@ ul { list-style: none; }
 
 .partner-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 24px;
 }
 
@@ -1052,7 +1054,7 @@ ul { list-style: none; }
   }
   .hero .badge { font-size: .78rem; padding: 5px 14px; margin-bottom: 20px; }
   .hero h1 { font-size: 1.5rem; letter-spacing: -.3px; }
-  .hero p { font-size: .92rem; margin-bottom: 28px; }
+  .hero .hero-subtitle { font-size: 1rem; margin-bottom: 32px; }
   .hero .btn-group { gap: 12px; }
   .btn { padding: 12px 26px; font-size: .92rem; }
   .hero-stats { gap: 20px; margin-top: 36px; }
@@ -1073,8 +1075,7 @@ ul { list-style: none; }
   .product-card .product-info h3 { font-size: 1.1rem; }
   .product-card .product-info .price { font-size: 1.5rem; }
 
-  /* 合作伙伴 */
-  .partner-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  /* 合作伙伴 — 平板2列 */
   .partner-card { padding: 28px 16px; }
 
   /* 联系我们 */
@@ -1109,8 +1110,7 @@ ul { list-style: none; }
   /* Hero */
   .hero { min-height: 88vh; }
   .hero h1 { font-size: 1.3rem; }
-  .hero p { font-size: .85rem; }
-  .hero p br { display: none; }
+  .hero .hero-subtitle { font-size: .88rem; }
   .hero-stats { flex-direction: row; flex-wrap: wrap; gap: 14px 20px; }
   .hero-stats .stat .num { font-size: 1.15rem; }
   .hero-stats .stat .label { font-size: .7rem; }
@@ -1122,8 +1122,7 @@ ul { list-style: none; }
   .about .about-highlights { gap: 10px; }
   .about .highlight-item { font-size: .78rem; padding: 8px 12px; }
 
-  /* 合作伙伴 — 单列 */
-  .partner-grid { grid-template-columns: 1fr; }
+  .partner-grid { grid-template-columns: 1fr; gap: 14px; }
 
   /* 联系表单 */
   .contact .contact-form { padding: 22px 18px; }
@@ -1354,9 +1353,9 @@ ul { list-style: none; }
 <section class="hero" id="home">
   <div class="glow-bottom"></div>
   <div class="container">
-    <div class="badge">🔋 固态电池正极材料 · 创新领航</div>
-    <h1>全固态电池<span>干法复合正极极片</span>领航者</h1>
-    <p>专注于高比能、高安全固态电池正极材料研发与生产<br>致力于成为干法复合正极极片领域的全球领导者</p>
+    <div class="badge">🔋 全固态电池 · 干法正极材料</div>
+    <h1>全固态电池<span class="highlight">干法复合正极极片</span>领航者</h1>
+    <p class="hero-subtitle">专注高比能、高安全正极材料研发与生产，致力于成为全球干法复合正极极片领域的领导者。</p>
     <div class="btn-group">
       <a href="#about" class="btn btn-primary">了解更多</a>
       <a href="#contact" class="btn btn-outline">联系我们</a>
@@ -1415,6 +1414,11 @@ ul { list-style: none; }
             <span class="icon">🔬</span> 2项发明专利
           </div>
         </div>
+        <p style="margin-top: 20px; font-size: 0.95rem; color: var(--text-secondary); line-height: 1.9;">
+          <strong>顾问团队：</strong><br>
+          🎓 赵瑞瑞副教授、郑奇峰教授（华南师范大学）<br>
+          🎓 南俊民教授（天赐材料独立董事）、袁中直教授（亿纬锂能副总工程师）
+        </p>
       </div>
       <div class="about-image animate animate-delay-1">
         <div class="image-placeholder">
@@ -1438,23 +1442,23 @@ ul { list-style: none; }
     <div class="tech-grid">
       <!-- 技术1 -->
       <div class="tech-card animate">
-        <div class="card-icon">⚡</div>
+        <div class="card-icon" style="width:100%;height:180px;overflow:hidden;border-radius:12px;"><img src="电子、离子双高效传输网络.png" alt="电子-离子双高效传输网络" style="width: 100%; height: 100%; object-fit: contain;"></div>
         <h3>电子-离子双高效传输网络</h3>
-        <p>PANI构建电子导电网络，LLZO提供锂离子通道，实现电子与离子的双高效传输，解决传统正极材料导电性不足的痛点。</p>
+        <p>PANI构建电子导电网络，LLZO提供锂离子通道，实现电子与离子的双高效传输。电子电导率提升13个数量级，达到<b>8.9×10⁻³ S/cm</b>，离子电导率<b>≥10⁻⁴ S/cm</b>，解决传统正极材料导电性不足的痛点。</p>
         <span class="card-tag">核心专利</span>
       </div>
       <!-- 技术2 -->
       <div class="tech-card animate animate-delay-1">
-        <div class="card-icon">🛡️</div>
+        <div class="card-icon" style="width:100%;height:180px;overflow:hidden;border-radius:12px;"><img src="双功能LMO图层.png" alt="双功能LMO包覆层" style="width: 100%; height: 100%; object-fit: cover;"></div>
         <h3>双功能LMO包覆层</h3>
-        <p>尖晶石LMO提供3D锂离子扩散网络，同时作为机械缓冲层保护电极结构，显著提升循环稳定性和倍率性能。</p>
+        <p>尖晶石LMO提供3D锂离子扩散网络，同时作为机械缓冲层保护电极结构。<b>500次循环容量保持率89.7%</b>（4.5V截止电压），显著提升循环稳定性和倍率性能。</p>
         <span class="card-tag">独创工艺</span>
       </div>
       <!-- 技术3 -->
       <div class="tech-card animate animate-delay-2">
-        <div class="card-icon">🏭</div>
+        <div class="card-icon" style="width:100%;height:180px;overflow:hidden;border-radius:12px;"><img src="六辊连续化压延系统.png" alt="六辊连续化压延系统" style="width: 100%; height: 100%; object-fit: cover;"></div>
         <h3>六辊连续化压延系统（SEMC）</h3>
-        <p>支持1000mm宽幅生产，厚度公差精确控制在±5µm以内，良品率高达96%，实现高效率、低成本的规模化量产。</p>
+        <p>支持<b>1000mm宽幅</b>生产，厚度公差精确控制在<b>±5µm</b>以内，良品率高达<b>96%</b>，制造成本较湿法降低<b>15%</b>，实现高效率、低成本的规模化量产。</p>
         <span class="card-tag">量产设备</span>
       </div>
     </div>
@@ -1468,40 +1472,40 @@ ul { list-style: none; }
   <div class="container">
     <div class="section-header">
       <h2>热销产品</h2>
-      <p>覆盖消费电子与动力电池两大应用场景</p>
+      <p>覆盖新能源汽车与eVTOL两大应用场景</p>
     </div>
     <div class="product-grid">
       <!-- 产品1 -->
       <div class="product-card animate">
         <div class="product-image">
-          <span class="product-badge">消费电池</span>
-          <span class="icon">📱</span>
+          <span class="product-badge">高能量型</span>
+          <img src="GL_HE.png" alt="GL-HE 高能量型正极片" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
         <div class="product-info">
-          <h3>GN-050系列正极片</h3>
-          <div class="price">3.9<span class="price-unit"> 元/Wh</span></div>
-          <p>适用于3C电子产品的消费电池，包括手机、笔记本电脑等便携式电子设备，提供更长的续航能力和更高的安全性。</p>
+          <h3>GL-HE 高能量型正极片</h3>
+          <div class="price">2.3<span class="price-unit"> 元/Wh</span></div>
+          <p>面向新能源汽车动力电池（长续航需求），适配氧化物、硫化物、卤化物全电解质体系，提供卓越的能量密度和循环稳定性。</p>
           <div class="feature-list">
-            <span>🔋 高能量密度</span>
-            <span>🛡️ 本质安全</span>
-            <span>📱 3C消费电子</span>
+            <span>🔋 能量密度800Wh/L</span>
+            <span>⚡ 比容量204.6mAh/g</span>
+            <span>🔄 循环寿命2100次</span>
           </div>
         </div>
       </div>
       <!-- 产品2 -->
       <div class="product-card animate animate-delay-1">
         <div class="product-image">
-          <span class="product-badge">动力电池</span>
-          <span class="icon">🚗</span>
+          <span class="product-badge">高功率型</span>
+          <img src="GL_HP.png" alt="GL-HP 高功率型正极片" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
         <div class="product-info">
-          <h3>GN-500系列正极片</h3>
-          <div class="price">3.9<span class="price-unit"> 元/Wh</span></div>
-          <p>适用于电动汽车、电动自行车等动力电池的组装，满足高倍率充放电需求，助力绿色出行和能源转型。</p>
+          <h3>GL-HP 高功率型正极片</h3>
+          <div class="price">2.4<span class="price-unit"> 元/Wh</span></div>
+          <p>面向eVTOL（电动垂直起降飞行器）高功率输出场景，满足高倍率充放电需求，助力未来城市空中交通电动化。</p>
           <div class="feature-list">
-            <span>⚡ 高倍率充放</span>
-            <span>🚗 电动汽车</span>
-            <span>🔄 长循环寿命</span>
+            <span>🚀 功率密度1000W/kg</span>
+            <span>⚡ 快充3C</span>
+            <span>🔄 循环寿命2100次</span>
           </div>
         </div>
       </div>
@@ -1539,6 +1543,11 @@ ul { list-style: none; }
         <div class="partner-name">耐普新能源</div>
         <div class="partner-desc">技术合作企业</div>
       </div>
+      <div class="partner-card animate animate-delay-4">
+        <div class="partner-icon">🧪</div>
+        <div class="partner-name">聚石化学</div>
+        <div class="partner-desc">深度合作企业</div>
+      </div>
     </div>
   </div>
 </section>
@@ -1556,19 +1565,19 @@ ul { list-style: none; }
       <div class="tech-card animate">
         <div class="card-icon">📈</div>
         <h3>千亿级市场蓝海</h3>
-        <p>全球固态电池市场规模预计2030年突破1500亿元，年复合增长率超过40%，正极材料是产业链核心环节。</p>
+        <p>全球固态电池出货量预计2030年达614GWh，中国市场预计达200亿元，年复合增长率超40%，正极材料是产业链核心环节。</p>
         <span class="card-tag">市场前景</span>
       </div>
       <div class="tech-card animate animate-delay-1">
         <div class="card-icon">🌍</div>
         <h3>政策强力驱动</h3>
-        <p>中国"十四五"规划将固态电池列为前沿储能技术重点方向，多项国家级政策持续加码推动产业化进程。</p>
+        <p>国务院、工信部等密集出台政策，将固态电池列为"十五五"新型电池产业规划重点方向，四部门明确支持eVTOL适航取证，加速产业化进程。</p>
         <span class="card-tag">政策利好</span>
       </div>
       <div class="tech-card animate animate-delay-2">
         <div class="card-icon">🏭</div>
-        <h3>产业链加速成型</h3>
-        <p>从上游原材料到下游整车厂，固态电池产业链日趋成熟，干法工艺凭借降本增效优势成为行业主流方向。</p>
+        <h3>干法工艺产业化拐点</h3>
+        <p>干法电极综合制造成本较湿法降低约18%，生产效率提升至7倍，良品率达96%，正成为全球电池制造范式重构的关键路径。</p>
         <span class="card-tag">产业趋势</span>
       </div>
     </div>
@@ -1584,24 +1593,18 @@ ul { list-style: none; }
       <h2>新闻资讯</h2>
       <p>固锂芯安最新动态与行业前沿</p>
     </div>
-    <div class="tech-grid">
+    <div class="tech-grid" style="grid-template-columns: repeat(2, 1fr); max-width: 800px; margin: 0 auto;">
       <div class="tech-card animate">
-        <div class="card-icon">📰</div>
-        <h3>固锂芯安团队荣获大学生创新创业大赛金奖</h3>
-        <p>团队凭借"全固态电池干法复合正极极片"项目在省级大学生创新创业大赛中脱颖而出，斩获金奖。</p>
-        <span class="card-tag">2026-06</span>
+        <div class="card-icon">🏆</div>
+        <h3>新增2项发明专利获得受理</h3>
+        <p>团队提交的"干法复合正极极片制备方法"和"双功能包覆层材料"两项发明专利已被国家知识产权局受理。</p>
+        <span class="card-tag">2026-04</span>
       </div>
       <div class="tech-card animate animate-delay-1">
         <div class="card-icon">🤝</div>
         <h3>与广汽研究院达成战略合作</h3>
         <p>固锂芯安与广汽研究院签署合作协议，共同推进固态电池正极材料在新能源汽车中的应用验证。</p>
         <span class="card-tag">2026-05</span>
-      </div>
-      <div class="tech-card animate animate-delay-2">
-        <div class="card-icon">🏆</div>
-        <h3>新增2项发明专利获得受理</h3>
-        <p>团队提交的"干法复合正极极片制备方法"和"双功能包覆层材料"两项发明专利已被国家知识产权局受理。</p>
-        <span class="card-tag">2026-04</span>
       </div>
     </div>
   </div>
@@ -1626,7 +1629,7 @@ ul { list-style: none; }
             <div class="info-icon">📍</div>
             <div>
               <h4>地址</h4>
-              <p>广东省广州市番禺区大学城外环西路378号</p>
+              <p>广东省广州市番禺区大学城外环西路378号<br>（华南师范大学大学城校区）</p>
             </div>
           </div>
           <div class="info-item">
@@ -1706,14 +1709,14 @@ ul { list-style: none; }
       </div>
       <div class="footer-col">
         <h4>产品中心</h4>
-        <a href="#products">GN-050系列正极片</a>
-        <a href="#products">GN-500系列正极片</a>
+        <a href="#products">GL-HE 高能量型正极片</a>
+        <a href="#products">GL-HP 高功率型正极片</a>
         <a href="#tech">核心技术</a>
         <a href="#market">市场信息</a>
       </div>
       <div class="footer-col">
         <h4>联系方式</h4>
-        <a>📍 广州大学城</a>
+        <a>📍 华南师范大学大学城校区</a>
         <a>📞 13712889330</a>
         <a>✉️ 20232434003@m.scnu.edu.cn</a>
       </div>
